@@ -1,0 +1,2 @@
+betaslag_risk_ratio	betasOSV_total_time	betasinter2	betaslag_OSV_total	betaslag_duration	betaslag_nlights_mean	betaslag_drought_prop	betaslag_mountains_prop	betaslag_dist_unit	betaslag_dist_border_own	betaslag_dist_cap_hun	betaslag_days_to_urban	betaslag_hq	betaslag_zone_de_confidence	betaslag_neigh_troops	betaslag_quality	betaslag_no_troops	betas_cons	betaslnalpha
+-15.14787	-.0783297	.066824	.0171368	.0218278	.1201043	-.3958773	-.1555932	-.0865923	-.614013	-.1453954	-13.74996	.2450113	-1.908745	1.876689	.0283181	-.0009276	18.31061	5.05638

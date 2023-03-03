@@ -1,2 +1,29 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+Geo_PKO.dta filter=lfs diff=lfs merge=lfs -text
+RR_bd.dta filter=lfs diff=lfs merge=lfs -text
+RR_FC_bd.dta filter=lfs diff=lfs merge=lfs -text
+RR_FC_Gov.dta filter=lfs diff=lfs merge=lfs -text
+RR_FC_OSV.dta filter=lfs diff=lfs merge=lfs -text
+DV_Hist.dta filter=lfs diff=lfs merge=lfs -text
+RR_FC_Rebs.dta filter=lfs diff=lfs merge=lfs -text
+RR_Gov.dta filter=lfs diff=lfs merge=lfs -text
+RR_OSV.dta filter=lfs diff=lfs merge=lfs -text
+RR_Rebs.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_bd.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_bd_t.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_FC_bd.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_FC_Gov.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_FC_OSV.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_FC_Rebs.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_Gov.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_Gov_t.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_OSV.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_Rebs.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_OSV_t.dta filter=lfs diff=lfs merge=lfs -text
+RR_X_Rebs_t.dta filter=lfs diff=lfs merge=lfs -text
+GED.csv filter=lfs diff=lfs merge=lfs -text
+PRIO-GRID.csv filter=lfs diff=lfs merge=lfs -text
+Geo_PKO_loop.dta filter=lfs diff=lfs merge=lfs -text
+Geo_PKO_nr.dta filter=lfs diff=lfs merge=lfs -text
+Geo_PKO_pre_rand.dta filter=lfs diff=lfs merge=lfs -text
