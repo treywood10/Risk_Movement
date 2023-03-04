@@ -1,1 +1,5 @@
 # Risk_Movement
+
+Welcome to my repository! This repository hosts the my research project entitled "Mandate Risk and the Movement of Peacekeepers." This project is the second empirical chapter of my dissertation. Here, I'm interested in how the level of peacekeeping mission mandate risk affects the deployment of peacekeeping troops within a host state. While mission force commanders prefer to deploy troops to violent locations, high levels of mandate risk reduce deployment sizes. In addition, commanders working with risky mandates prefer to deploy troops to locations once the violence has subsided. 
+
+This project uses R to create a dataset based on geo-spatial data that tracks peacekeeping troops deployments within a host state. After building the dataset, I analyze it in STATA. I then return to R to estimate substantive effects by simulating coefficients for predicted counts of troop deployments. 
