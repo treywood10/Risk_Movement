@@ -24,6 +24,4 @@ RR_X_OSV_t.dta filter=lfs diff=lfs merge=lfs -text
 RR_X_Rebs_t.dta filter=lfs diff=lfs merge=lfs -text
 GED.csv filter=lfs diff=lfs merge=lfs -text
 PRIO-GRID.csv filter=lfs diff=lfs merge=lfs -text
-Geo_PKO_loop.dta filter=lfs diff=lfs merge=lfs -text
 Geo_PKO_nr.dta filter=lfs diff=lfs merge=lfs -text
-Geo_PKO_pre_rand.dta filter=lfs diff=lfs merge=lfs -text

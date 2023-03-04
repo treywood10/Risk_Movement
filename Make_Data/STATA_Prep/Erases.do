@@ -11,3 +11,9 @@ local large r49.dta r1.dta r2.dta r3.dta r4.dta r5.dta r6.dta r7.dta r8.dta r9.d
 foreach x in `large' {
 	erase ${cd_path}/Make_Data/STATA_Prep/Random_Loops/`x'
 }
+
+*** Extra datasets ***
+local data Geo_PKO_loop.dta Geo_PKO_pre_rand.dta
+foreach x in `data' {
+	erase ${cd_path}/Make_Data/STATA_Prep/`x'
+}
