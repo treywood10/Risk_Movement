@@ -115,6 +115,27 @@ plot <- ggplot(data = plot_RR_bd) +
         text = element_text(family = "Times New Roman")) 
 ggsave("Graphs/gg_H2_RR_bd.jpg", width = 14, height = 12, dpi = 400)
 
+plot <- ggplot(data = plot_RR_bd) +
+  geom_ribbon(alpha = .5, aes(x = X, ymin = Lower, ymax = Upper), fill = "gray50") +
+  geom_line(data = plot_RR_bd, aes(x = X, y = Median), linewidth = 1.5, lty = 1) +
+  geom_rug(data = dat, aes(x = lag_risk_ratio, y = -2), sides = "b", 
+           position = position_jitter(w = 0.005, h = 0), alpha = 0.15) +
+  xlab(expression("Risk Ratio")) +
+  ylab(expression("Predicted Number of Troops in Cell")) +
+  ggtitle("Effect of Risk Ratio on Troop Counts, Battle Deaths") +
+  geom_hline(yintercept = 0, linewidth = 2) +
+  theme(plot.title = element_text(hjust = 0.5, size = 35),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 20),
+        legend.key.size = unit(1.5, "cm"),
+        axis.text.x = element_text(size = 40),
+        axis.text.y = element_text(size = 40),
+        axis.title.y = element_text(size = 45, margin = margin(0, 15, 0, 0)),
+        axis.title.x = element_text(size = 45, margin = margin(15, 0, 10, 0)),
+        axis.ticks.length = unit(10, "pt"),
+        text = element_text(family = "Times New Roman")) 
+ggsave("Graphs/gg_H2_RR_bd_pres.jpg", width = 14, height = 12, dpi = 400)
+
 
 #~~~~~~~~~~~~~~~~~#
 #### Total OSV ####

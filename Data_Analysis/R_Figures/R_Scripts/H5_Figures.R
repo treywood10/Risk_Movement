@@ -445,7 +445,7 @@ plot <- ggplot(data = plot_RR_Deaths) +
   ylab(expression("Prediced Number of Troops in Cell")) + 
   xlab(expression("FC Duration"[italic("t-1")])) + 
   ylim(0, 0.6) + 
-  ggtitle("Effect of FC Duration on Troop Contributions") +
+  ggtitle("Effect of FC Duration on Troop Counts") +
   facet_wrap(vars(group)) +
   theme(plot.title = element_text(hjust = 0.5, size = 30),
         legend.title = element_text(size = 20),

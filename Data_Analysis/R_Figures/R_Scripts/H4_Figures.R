@@ -160,8 +160,8 @@ plot <- ggplot(data = plot_bd_t) +
   geom_rug(data = dat_bd_t, aes(x = best_time, y = 10), sides = "b", 
            position = position_jitter(w = 0, h = 0), alpha = 0.005) +
   xlab(expression("Months Since Last Battle Death")) +
-  ylab("Marginal Effect of Risk Ratio on Contributions") +
-  ggtitle("Effect of Risk Ratio and Time on Troop Contributions") +
+  ylab("Marginal Effect of Risk Ratio") +
+  ggtitle("Effect of Risk Ratio and Time on Troop Counts") +
   geom_hline(yintercept = 0) +
   theme(plot.title = element_text(hjust = 0.5, size = 35),
         legend.title = element_text(size = 20),
@@ -178,6 +178,36 @@ plot <- ggplot(data = plot_bd_t) +
   geom_text(aes(x = 130, y = -6), label = "Statistical Insignificance (X = 150)",
             size = 8, family = "Times New Roman") 
 ggsave("Graphs/gg_H4_bd.jpg", width = 14, height = 12, dpi = 400)
+
+
+plot <- ggplot(data = plot_bd_t) +
+  geom_ribbon(alpha = .5, aes(x = X, ymin = Lower, ymax = Upper), fill = "gray50") +
+  geom_line(data = plot_bd_t, aes(x = X, y = Median), linewidth = 1.5, lty = 1) +
+  scale_x_continuous(limits = c(0, 240),
+                     breaks = c(0, 40, 80, 120, 160, 200, 240)) +
+  scale_y_continuous(limits = c(-25, 5)) +
+  geom_rug(data = dat_bd_t, aes(x = best_time, y = 10), sides = "b", 
+           position = position_jitter(w = 0, h = 0), alpha = 0.005) +
+  xlab(expression("Months Since Last Battle Death")) +
+  ylab("Marginal Effect of Risk Ratio") +
+  ggtitle("Effect of Risk Ratio and Time on Troop Counts") +
+  geom_hline(yintercept = 0, linewidth = 2) +
+  theme(plot.title = element_text(hjust = 0.5, size = 35),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 20),
+        legend.key.size = unit(1.5, "cm"),
+        axis.text.x = element_text(size = 40),
+        axis.text.y = element_text(size = 40),
+        axis.title.y = element_text(size = 45, margin = margin(0, 15, 0, 0)),
+        axis.title.x = element_text(size = 45, margin = margin(15, 0, 10, 0)),
+        axis.ticks.length = unit(10, "pt"),
+        text = element_text(family = "Times New Roman")) +
+  geom_segment(x = 130, y = -5, xend = 150, yend = -0.5,
+               color = "black", arrow = arrow(angle = 20)) +
+  geom_text(aes(x = 130, y = -6), label = "Statistical Insignificance (X = 150)",
+            size = 12, family = "Times New Roman") 
+ggsave("Graphs/gg_H4_bd_pres.jpg", width = 14, height = 12, dpi = 400)
+
 
 
 #~~~~~~~~~~~~~~~~~~~~~#

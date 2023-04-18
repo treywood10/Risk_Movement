@@ -141,7 +141,7 @@ plot <- ggplot(data = plot_bd) +
            position = position_jitter(w = 0, h = 0), alpha = 0.5) +
   xlab(expression("Battle Deaths"[italic("t-1")])) + 
   ylab("Marginal Effect of Risk Ratio on Contributions") +
-  ggtitle("Effect of Risk Ratio and Battle Deaths on Troop Contributions") +
+  ggtitle("Effect of Risk Ratio and Battle Deaths on Troop Counts") +
   geom_hline(yintercept = 0) +
   theme(plot.title = element_text(hjust = 0.5, size = 35),
         legend.title = element_text(size = 20),

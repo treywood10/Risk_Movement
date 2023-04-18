@@ -439,7 +439,7 @@ plot <- ggplot(data = plot_RR_Deaths) +
   geom_hline(yintercept = 0) +
   ylab(expression("Prediced Number of Troops in Cell")) + 
   xlab(expression("Count of Conflict Danger"[italic("t-1")])) + 
-  ggtitle("Effect of Various Violent Actions on Troop Contributions") +
+  ggtitle("Effect of Various Violent Actions on Troop Counts") +
   facet_wrap(vars(group), scales = "free_y") +
   theme(plot.title = element_text(hjust = 0.5, size = 30),
         legend.title = element_text(size = 20),
