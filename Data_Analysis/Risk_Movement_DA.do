@@ -2647,3 +2647,198 @@ meta set inter_FC_beta inter_FC_se, common studylabel(ID) studysize(size)
 
 * Get overall effect
 meta summarize, common(invvariance)
+
+
+*************************
+*** Total Task Counts ***
+*************************
+
+*** Import Dataset ***
+use Data_Analysis/Geo_PKO.dta, clear
+
+
+* Battle Deaths
+qui eststo m65: nbreg no_troops lag_total_count lag_best best_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_best <= 200 & observe == 0, cluster(mission) 
+
+* Total OSV
+qui eststo m66: nbreg no_troops lag_total_count lag_OSV_total OSV_total_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_total <= 200 & observe == 0, cluster(mission)  
+
+* Rebel OSV
+qui eststo m67: nbreg no_troops lag_total_count lag_OSV_Rebs OSV_Rebs_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_Rebs <= 200 & observe == 0, cluster(mission)  
+
+* Gov OSV
+qui eststo m68: nbreg no_troops lag_total_count lag_OSV_GOV OSV_GOV_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_GOV <= 200 & observe == 0, cluster(mission)  
+
+
+* Battle Deaths 
+gen inter11 = lag_total_count * lag_best
+label var inter11 "Total Count x Battle Deaths"
+qui eststo m69: nbreg no_troops lag_total_count lag_best inter11 best_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_best <= 200 & observe == 0, cluster(mission)  
+
+* Total OSV 
+gen inter12 = lag_total_count * lag_OSV_total
+label var inter12 "Total Count x OSV Total"
+qui eststo m70: nbreg no_troops lag_total_count lag_OSV_total inter12 OSV_total_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_total <= 200 & observe == 0, cluster(mission)  
+
+* Rebel OSV
+gen inter13 = lag_total_count * lag_OSV_Rebs
+label var inter13 "Total Count x OSV Rebs"
+qui eststo m71: nbreg no_troops lag_total_count lag_OSV_Rebs inter13 OSV_Rebs_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_Rebs <= 200 & observe == 0, cluster(mission)  
+
+* Gov OSV
+gen inter14 = lag_total_count * lag_OSV_GOV
+label var inter14 "Total Count x OSV Gov"
+qui eststo m72: nbreg no_troops lag_total_count lag_OSV_GOV inter14 OSV_GOV_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_GOV <= 200 & observe == 0, cluster(mission)  
+
+
+* Battle Deaths 
+gen inter21 = lag_total_count * best_time
+label var inter21 "Total Count x Time Since Death"
+eststo m73: nbreg no_troops lag_total_count best_time inter21 lag_best lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_best <= 200 & observe == 0, cluster(mission)  
+
+* Total OSV 
+gen inter22 = lag_total_count * OSV_total_time
+label var inter22 "Total Count x Time Since OSV Total"
+qui eststo m74: nbreg no_troops lag_total_count OSV_total_time inter22 lag_OSV_total lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_total <= 200 & observe == 0, cluster(mission)  
+
+* Rebel OSV
+gen inter23 = lag_total_count * OSV_Rebs_time
+label var inter23 "Total Count x Time Since OSV Rebs"
+qui eststo m75: nbreg no_troops lag_total_count OSV_Rebs_time inter23 lag_OSV_Rebs lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_Rebs <= 200 & observe == 0, cluster(mission)  
+
+* Gov OSV
+gen inter24 = lag_total_count * OSV_GOV_time
+label var inter24 "Total Count x Time Since OSV Gov"
+qui eststo m76: nbreg no_troops lag_total_count OSV_GOV_time inter24 lag_OSV_GOV lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_GOV <= 200 & observe == 0, cluster(mission)  
+
+
+* Battle Deaths 
+gen inter31 = lag_total_count * lag_duration
+label var inter31 "Total Count x FC Duration"
+eststo m77: nbreg no_troops lag_total_count lag_duration inter31 lag_best best_time $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_best <= 200 & observe == 0, cluster(mission)  
+
+* Total OSV 
+qui eststo m78: nbreg no_troops lag_total_count lag_duration inter31 lag_OSV_total OSV_total_time $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_total <= 200 & observe == 0, cluster(mission)  
+
+* Rebel OSV
+qui eststo m79: nbreg no_troops lag_total_count lag_duration inter31 lag_OSV_Rebs OSV_Rebs_time $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_Rebs <= 200 & observe == 0, cluster(mission)  
+
+* Gov OSV
+qui eststo m80: nbreg no_troops lag_total_count lag_duration inter31 lag_OSV_GOV OSV_GOV_time $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_GOV <= 200 & observe == 0, cluster(mission)  
+
+
+esttab m65 m66 m67 m68 m69 m70 m71 m72 ///
+using /Users/treywood/Dropbox/Projects/Active_Projects/Dissertation/Paper/Total_Count_p1.tex, replace /// 
+se(%6.3f) b(%6.3f) label nodep obslast nonotes ///
+star(+ 0.10 * 0.05 ** 0.01) ///
+title("Effect of Total Counts on Troops in Cell, Part 1") ///
+mtitles("Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV" "Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV") ///
+order(lag_total_count best_time lag_best OSV_total_time lag_OSV_total OSV_Rebs_time lag_OSV_Rebs OSV_GOV_time lag_OSV_GOV lag_duration inter*) ///
+addnotes("Mission clustered standard errors in parentheses" "Dependent Variable is troop counts" "Randomly selected 25\% of grid-mission-month cells" "Restricted to 200 deaths and non-observer missions" "$+ p<0.10, * p<0.05, ** p<0.01$. Two-tailed test.")
+
+esttab m73 m74 m75 m76 m77 m78 m79 m80 ///
+using /Users/treywood/Dropbox/Projects/Active_Projects/Dissertation/Paper/Total_Count_p2.tex, replace /// 
+se(%6.3f) b(%6.3f) label nodep obslast nonotes ///
+star(+ 0.10 * 0.05 ** 0.01) ///
+title("Effect of Total Counts on Troops in Cell, Part 2") ///
+mtitles("Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV" "Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV") ///
+order(lag_total_count best_time lag_best OSV_total_time lag_OSV_total OSV_Rebs_time lag_OSV_Rebs OSV_GOV_time lag_OSV_GOV lag_duration inter*) ///
+addnotes("Mission clustered standard errors in parentheses" "Dependent Variable is troop counts" "Randomly selected 25\% of grid-mission-month cells" "Restricted to 200 deaths and non-observer missions" "$+ p<0.10, * p<0.05, ** p<0.01$. Two-tailed test.")
+
+drop inter*
+
+
+**************************
+*** Total Risky Counts ***
+**************************
+
+* Battle Deaths
+qui eststo m81: nbreg no_troops lag_risky_count lag_best best_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_best <= 200 & observe == 0, cluster(mission) 
+
+* Total OSV
+qui eststo m82: nbreg no_troops lag_risky_count lag_OSV_total OSV_total_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_total <= 200 & observe == 0, cluster(mission)  
+
+* Rebel OSV
+qui eststo m83: nbreg no_troops lag_risky_count lag_OSV_Rebs OSV_Rebs_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_Rebs <= 200 & observe == 0, cluster(mission)  
+
+* Gov OSV
+qui eststo m84: nbreg no_troops lag_risky_count lag_OSV_GOV OSV_GOV_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_GOV <= 200 & observe == 0, cluster(mission)  
+
+
+* Battle Deaths 
+gen inter11 = lag_risky_count * lag_best
+label var inter11 "Risky Count x Battle Deaths"
+qui eststo m85: nbreg no_troops lag_risky_count lag_best inter11 best_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_best <= 200 & observe == 0, cluster(mission)  
+
+* Total OSV 
+gen inter12 = lag_risky_count * lag_OSV_total
+label var inter12 "Risky Count x OSV Total"
+qui eststo m86: nbreg no_troops lag_risky_count lag_OSV_total inter12 OSV_total_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_total <= 200 & observe == 0, cluster(mission)  
+
+* Rebel OSV
+gen inter13 = lag_risky_count * lag_OSV_Rebs
+label var inter13 "Risky Count x OSV Rebs"
+qui eststo m87: nbreg no_troops lag_risky_count lag_OSV_Rebs inter13 OSV_Rebs_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_Rebs <= 200 & observe == 0, cluster(mission)  
+
+* Gov OSV
+gen inter14 = lag_risky_count * lag_OSV_GOV
+label var inter14 "Risky Count x OSV Gov"
+qui eststo m88: nbreg no_troops lag_risky_count lag_OSV_GOV inter14 OSV_GOV_time lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_GOV <= 200 & observe == 0, cluster(mission)  
+
+
+* Battle Deaths 
+gen inter21 = lag_risky_count * best_time
+label var inter21 "Risky Count x Time Since Death"
+eststo m89: nbreg no_troops lag_risky_count best_time inter21 lag_best lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_best <= 200 & observe == 0, cluster(mission)  
+
+* Total OSV 
+gen inter22 = lag_risky_count * OSV_total_time
+label var inter22 "Risky Count x Time Since OSV Total"
+qui eststo m90: nbreg no_troops lag_risky_count OSV_total_time inter22 lag_OSV_total lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_total <= 200 & observe == 0, cluster(mission)  
+
+* Rebel OSV
+gen inter23 = lag_risky_count * OSV_Rebs_time
+label var inter23 "Risky Count x Time Since OSV Rebs"
+qui eststo m91: nbreg no_troops lag_risky_count OSV_Rebs_time inter23 lag_OSV_Rebs lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_Rebs <= 200 & observe == 0, cluster(mission)  
+
+* Gov OSV
+gen inter24 = lag_risky_count * OSV_GOV_time
+label var inter24 "Risky Count x Time Since OSV Gov"
+qui eststo m92: nbreg no_troops lag_risky_count OSV_GOV_time inter24 lag_OSV_GOV lag_duration $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_GOV <= 200 & observe == 0, cluster(mission)  
+
+
+* Battle Deaths 
+gen inter31 = lag_risky_count * lag_duration
+label var inter31 "Risky Count x FC Duration"
+eststo m93: nbreg no_troops lag_risky_count lag_duration inter31 lag_best best_time $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_best <= 200 & observe == 0, cluster(mission)  
+
+* Total OSV 
+qui eststo m94: nbreg no_troops lag_risky_count lag_duration inter31 lag_OSV_total OSV_total_time $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_total <= 200 & observe == 0, cluster(mission)  
+
+* Rebel OSV
+qui eststo m95: nbreg no_troops lag_risky_count lag_duration inter31 lag_OSV_Rebs OSV_Rebs_time $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_Rebs <= 200 & observe == 0, cluster(mission)  
+
+* Gov OSV
+qui eststo m96: nbreg no_troops lag_risky_count lag_duration inter31 lag_OSV_GOV OSV_GOV_time $host $distances $mission lag_no_troops if rand1_25 == 1 & lag_OSV_GOV <= 200 & observe == 0, cluster(mission)  
+
+
+esttab m81 m82 m83 m84 m85 m86 m87 m88 ///
+using /Users/treywood/Dropbox/Projects/Active_Projects/Dissertation/Paper/Risky_Count_p1.tex, replace /// 
+se(%6.3f) b(%6.3f) label nodep obslast nonotes ///
+star(+ 0.10 * 0.05 ** 0.01) ///
+title("Effect of Risky Counts on Troops in Cell, Part 1") ///
+mtitles("Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV" "Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV" "Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV") ///
+order(lag_risky_count best_time lag_best OSV_total_time lag_OSV_total OSV_Rebs_time lag_OSV_Rebs OSV_GOV_time lag_OSV_GOV lag_duration inter*) ///
+addnotes("Mission clustered standard errors in parentheses" "Dependent Variable is troop counts" "Randomly selected 25\% of grid-mission-month cells" "Restricted to 200 deaths and non-observer missions" "$+ p<0.10, * p<0.05, ** p<0.01$. Two-tailed test.")
+
+
+esttab m89 m90 m91 m92 m93 m94 m95 m96 ///
+using /Users/treywood/Dropbox/Projects/Active_Projects/Dissertation/Paper/Risky_Count_p2.tex, replace /// 
+se(%6.3f) b(%6.3f) label nodep obslast nonotes ///
+star(+ 0.10 * 0.05 ** 0.01) ///
+title("Effect of Risky Counts on Troops in Cell, Part 2") ///
+mtitles("Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV" "Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV" "Battle Deaths" "Total OSV" "Rebels OSV" "Gov OSV") ///
+order(lag_risky_count best_time lag_best OSV_total_time lag_OSV_total OSV_Rebs_time lag_OSV_Rebs OSV_GOV_time lag_OSV_GOV lag_duration inter*) ///
+addnotes("Mission clustered standard errors in parentheses" "Dependent Variable is troop counts" "Randomly selected 25\% of grid-mission-month cells" "Restricted to 200 deaths and non-observer missions" "$+ p<0.10, * p<0.05, ** p<0.01$. Two-tailed test.")
+
+drop inter*

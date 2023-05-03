@@ -1926,7 +1926,8 @@ Geo_PKO <- Geo_PKO %>%
            election_assist + govcap_assist + govpolicies_assist + cultural_pres + qip_assist +
            justice_assist + reconciliation + justice_warcrim + mission_pr + freepress,
          risk_ratio = risky_count/(less_risky_count + risky_count)) %>%
-select(-risky_count, -less_risky_count)
+  mutate(total_count = risky_count + less_risky_count) %>%
+select(-less_risky_count)
 
 
 # Drop TAMM dataframe #

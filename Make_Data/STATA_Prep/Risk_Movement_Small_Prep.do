@@ -107,7 +107,7 @@ drop v1
 
 
 * IVs *
-local lags risk_ratio nlights_mean dist_unit dist_cap_hun neigh_troops_thou zone_de_confidence no_tcc mountains_prop total_land_area dist_cont_state dist_border_neigh dist_border_own hq days_to_urban Gov_watch drought_prop excluded_groups total_rain quality duration
+local lags risk_ratio nlights_mean dist_unit dist_cap_hun neigh_troops_thou zone_de_confidence no_tcc mountains_prop total_land_area dist_cont_state dist_border_neigh dist_border_own hq days_to_urban Gov_watch drought_prop excluded_groups total_rain quality duration risky_count total_count
 
 foreach x in `lags' {
 	bysort gid mission (year month): gen lag_`x' = `x'[_n-1]
@@ -152,7 +152,8 @@ label var lag_excluded_groups "Number of Excluded Ethnic Groups"
 label var lag_total_rain "Year's Total Precipitation (mm)"
 label var lag_quality "Troop Quality (Millions of Dollars)"
 label var lag_duration "FC Duration"
-
+label var lag_risky_count "Risky Task Count"
+label var lag_total_count "Total Task Count"
 
 *** Natural the neighboring troops variable ***
 gen ln_lag_neigh_troops_thou = ln(lag_neigh_troops + 1)
